@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Meu Site</title>
+</head>
+<body>
+
+  <button id="abrirSite">Abrir Meu Site em about:blank</button>
+
+  <script>
+    document.getElementById('abrirSite').addEventListener('click', async function() {
+      // Puxa o arquivo do Drive via link direto de download
+      const driveUrl = 'https://docs.google.com/uc?export=download&id=1jVgpl2m8ecQboh0aMiimj8SnmE8PCwK3';
+      
+      try {
+        const response = await fetch(driveUrl);
+        const htmlContent = await response.text();
+        
+        const win = window.open('about:blank', '_blank');
+        if (win) {
+          win.document.write(htmlContent);
+          win.document.close();
+        } else {
+          alert('Permita os pop-ups para abrir o site.');
+        }
+      } catch (err) {
+        alert('Erro ao carregar o arquivo do Drive.');
+      }
+    });
+  </script>
+
+</body>
+</html>
